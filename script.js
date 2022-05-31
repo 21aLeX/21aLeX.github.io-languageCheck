@@ -21,7 +21,8 @@ ot.oninput = () => {
     if (ot.value === '') {
         value1 = null
     }
-    getRange(courses,[value1,value2])
+    console.log(courses.filter(getRange2))
+    // getRange2(courses,[value1,value2])
 }
 const doo = document.getElementById('doo')
 doo.oninput = () => {
@@ -29,7 +30,8 @@ doo.oninput = () => {
     if (doo.value === '') {
         value2 = null
     }
-    getRange(courses,[value1,value2])
+    console.log(courses.filter(getRange2))
+    // getRange2(courses,[value1,value2])
 }
 
 for (i of courses) {
@@ -57,6 +59,33 @@ function sortPrices(arr) {
 }
 
 let answerArr = []
+function getRange2(element) {
+    let a = b = false
+        if (value1 < value2) {
+            a = (element.prices[0] >= value1 && element.prices[0] <= value2)
+            if (!a) {
+                b = element.prices[0] <= value2
+                if (b) a = true
+            }
+            else b = true
+        }
+        else if (value1 == value2) {
+            a = (element.prices[0] == value1)
+            b = (element.prices[1] == value2)
+        }
+        else if (value1 > value2) {
+            a = element.prices[0] >= value1
+            b = true
+            if (element.prices[0] == null && element.prices[1] == null) {
+                a = true
+                b = true
+            }
+        }
+
+        if (a && b) {
+            return true
+        }
+}
 function getRange(arr, arrPrices) {
     let a = b = false
     for (key of arr) {
