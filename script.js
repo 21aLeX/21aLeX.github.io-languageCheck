@@ -35,19 +35,19 @@ doo.oninput = () => {
     render()
     // getRange2(courses,[value1,value2])
 }
-function render(){
-const div = document.getElementById('div')
-console.log(div)
-    div.innerHTML=''
-    for (i of  copyCourses) {
-    let li = document.createElement('li')
-    let iff1 = i.prices[0] ? ' от ' + i.prices[0] : ' '
-    let iff2 = i.prices[1] ? ' до ' + i.prices[1] : ' '
-    li.innerHTML = i.name + iff1 + iff2;
-    li.className = 'start'
-    div.append(li)
+function render() {
+    const div = document.getElementById('div')
+    console.log(div)
+    div.innerHTML = ''
+    for (i of copyCourses) {
+        let li = document.createElement('li')
+        let iff1 = i.prices[0] ? ' от ' + i.prices[0] : ' '
+        let iff2 = i.prices[1] ? ' до ' + i.prices[1] : ' '
+        li.innerHTML = i.name + iff1 + iff2;
+        li.className = 'start'
+        div.append(li)
 
-}
+    }
 }
 render()
 
@@ -86,8 +86,8 @@ function getRange2(element) {
     }
     if (element.prices[0] <= value2 && element.prices[1] >= value1)
         return true
-    if (element.prices[1]===null && element.prices[0]<=value2)
-    return true
+    if (element.prices[1] === null && (element.prices[0] <= value2 && element.prices[0] >= value1))
+        return true
 }
 
 
