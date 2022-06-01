@@ -1,13 +1,12 @@
-/* body{
+body{
     text-align: center;
-} */
+}
+div{
+    width: max-content;
+    text-align: left;
+    margin-left: auto;
+    margin-right: auto;
+}
 .start{
     color: rgb(5, 11, 92);
-}
-.if{
-    color: brown;
-    font-size: large;
-}
-.answer{
-    color: darkgoldenrod;
 }

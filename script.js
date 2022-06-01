@@ -1,6 +1,3 @@
-let requiredRange1 = [null, 200];
-let requiredRange2 = [100, 350];
-let requiredRange3 = [200, null]
 let value1 = null
 let value2 = null
 
@@ -14,37 +11,37 @@ let courses = [
     { name: "Courses in Kazakhstan", prices: [56, 324] },
     { name: "Courses in France", prices: [null, null] },
 ];
-let copyCourses = courses
+
+let copyCourses = sortPrices(courses)
+
 const ot = document.getElementById('ot')
 ot.oninput = () => {
     value1 = ot.value
     if (ot.value === '') {
         value1 = null
     }
-    copyCourses = courses.filter(getRange2)
+    copyCourses = courses.filter(getRange)
     render()
-    // getRange2(courses,[value1,value2])
 }
+
 const doo = document.getElementById('doo')
 doo.oninput = () => {
     value2 = doo.value
     if (doo.value === '') {
         value2 = null
     }
-    copyCourses = courses.filter(getRange2)
+    copyCourses = courses.filter(getRange)
     render()
-    // getRange2(courses,[value1,value2])
 }
+
 function render() {
     const div = document.getElementById('div')
-    console.log(div)
     div.innerHTML = ''
     for (i of copyCourses) {
         let li = document.createElement('li')
         let iff1 = i.prices[0] ? ' от ' + i.prices[0] : ' '
         let iff2 = i.prices[1] ? ' до ' + i.prices[1] : ' '
         li.innerHTML = i.name + iff1 + iff2;
-        li.className = 'start'
         div.append(li)
 
     }
@@ -65,8 +62,7 @@ function sortPrices(arr) {
     return arr
 }
 
-let answerArr = []
-function getRange2(element) {
+function getRange(element) {
     if (element.prices[0] === null && element.prices[1] === null)
         return true
     if (value1 === null) {
