@@ -14,14 +14,15 @@ let courses = [
     { name: "Courses in Kazakhstan", prices: [56, 324] },
     { name: "Courses in France", prices: [null, null] },
 ];
-console.log(value1 + ' ' + value2)
+let copyCourses = courses
 const ot = document.getElementById('ot')
 ot.oninput = () => {
     value1 = ot.value
     if (ot.value === '') {
         value1 = null
     }
-    console.log(courses.filter(getRange2))
+    copyCourses = courses.filter(getRange2)
+    render()
     // getRange2(courses,[value1,value2])
 }
 const doo = document.getElementById('doo')
@@ -30,19 +31,25 @@ doo.oninput = () => {
     if (doo.value === '') {
         value2 = null
     }
-    console.log(courses.filter(getRange2))
+    copyCourses = courses.filter(getRange2)
+    render()
     // getRange2(courses,[value1,value2])
 }
-
-for (i of courses) {
-    let div = document.createElement('li')
+function render(){
+const div = document.getElementById('div')
+console.log(div)
+    div.innerHTML=''
+    for (i of  copyCourses) {
+    let li = document.createElement('li')
     let iff1 = i.prices[0] ? ' от ' + i.prices[0] : ' '
     let iff2 = i.prices[1] ? ' до ' + i.prices[1] : ' '
-    div.innerHTML = i.name + iff1 + iff2;
-    div.className = 'start'
-    document.body.append(div)
+    li.innerHTML = i.name + iff1 + iff2;
+    li.className = 'start'
+    div.append(li)
 
 }
+}
+render()
 
 
 function sortPrices(arr) {
@@ -60,87 +67,27 @@ function sortPrices(arr) {
 
 let answerArr = []
 function getRange2(element) {
-    let a = b = false
-        if (value1 < value2) {
-            a = (element.prices[0] >= value1 && element.prices[0] <= value2)
-            if (!a) {
-                b = element.prices[0] <= value2
-                if (b) a = true
-            }
-            else b = true
-        }
-        else if (value1 == value2) {
-            a = (element.prices[0] == value1)
-            b = (element.prices[1] == value2)
-        }
-        else if (value1 > value2) {
-            a = element.prices[0] >= value1
-            b = true
-            if (element.prices[0] == null && element.prices[1] == null) {
-                a = true
-                b = true
-            }
-        }
+    if (element.prices[0] === null && element.prices[1] === null)
+        return true
+    if (value1 === null) {
+        if (value2 !== null) {
+            if (element.prices[0] <= value2)
+                return true
 
-        if (a && b) {
-            return true
         }
-}
-function getRange(arr, arrPrices) {
-    let a = b = false
-    for (key of arr) {
-        if (arrPrices[0] < arrPrices[1]) {
-            a = (key.prices[0] >= arrPrices[0] && key.prices[0] <= arrPrices[1])
-            if (!a) {
-                b = key.prices[0] <= arrPrices[1]
-                if (b) a = true
-            }
-            else b = true
-        }
-        else if (arrPrices[0] == arrPrices[1]) {
-            a = (key.prices[0] == arrPrices[0])
-            b = (key.prices[1] == arrPrices[1])
-        }
-        else if (arrPrices[0] > arrPrices[1]) {
-            a = key.prices[0] >= arrPrices[0]
-            b = true
-            if (key.prices[0] == null && key.prices[1] == null) {
-                a = true
-                b = true
-            }
-        }
-
-        if (a && b) {
-            answerArr.push(key)
-        }
+        else return true
     }
-}
-
-function createRange(required) {
-    answerArr = []
-    getRange(sortPrices(courses), required)
-    let div = document.createElement('div')
-    div.innerHTML = '------------------------------------------';
-    document.body.append(div)
-    let divHead = document.createElement('div')
-    let iff1 = required[0] ? ' от ' + required[0] : ' '
-    let iff2 = required[1] ? ' до ' + required[1] : ' '
-    divHead.innerHTML = 'Курсы подходящие :' + iff1 + iff2;
-    divHead.className = 'if'
-
-    document.body.append(divHead)
-    for (i of answerArr) {
-        let div = document.createElement('div')
-        let iff1 = i.prices[0] ? ' от ' + i.prices[0] : ' '
-        let iff2 = i.prices[1] ? ' до ' + i.prices[1] : ' '
-        div.innerHTML = i.name + iff1 + iff2;
-        div.className = 'answer'
-        document.body.append(div)
+    if (value2 === null) {
+        if (value1 !== null) {
+            if (element.prices[1] >= value1 || element.prices[0] >= value1)
+                return true
+        }
+        else return true
     }
+    if (element.prices[0] <= value2 && element.prices[1] >= value1)
+        return true
+    if (element.prices[1]===null && element.prices[0]<=value2)
+    return true
 }
-
-createRange(requiredRange1)
-createRange(requiredRange2)
-createRange(requiredRange3)
 
 
